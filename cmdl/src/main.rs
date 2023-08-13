@@ -1,10 +1,18 @@
-use from_file::FromFile;
+use from_file::{FromFile, FromFileError};
 
-use auth::Credentials;
+use auth::{CredsJson, CredsYaml};
 
 fn main() {
-    match Credentials::from_file("keys/twitter_keys.json") {
+    let keyfile = "keys/twitter_keys.yaml";
+
+    match CredsJson::from_file(keyfile) {
         Ok(p) => println!("Data read: {p:#?}"),
-        Err(e) => eprintln!("{}", e),
+        Err(e) => match e {
+            FromFileError::SerdeError(_) => match CredsYaml::from_file(keyfile) {
+                Ok(p) => println!("Data read: {p:#?}"),
+                _ => eprintln!("{}", e),
+            },
+            _ => eprintln!("{}", e),
+        },
     }
 }
