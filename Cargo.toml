@@ -5,6 +5,6 @@ members = [
     "oneone",   # Things needed from Twitter API v1.1
     "veetwo",   # Things needed from Twitter API v2
     "cmdl",     # Queries from the command line
-    "follies",  # A service tracking followers
+    "follies",  # A service for tracking followers
     "graphf",   # Gather social network data for analysis
 ]

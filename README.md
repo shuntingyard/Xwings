@@ -1,3 +1,3 @@
 # Xwings 🦀🚀
 
-Oxidized ideas about Twitter before it became X 🤷
+My oxidized ideas about Twitter before it became `X` 🤷
