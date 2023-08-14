@@ -1,18 +1,12 @@
-use from_file::{FromFile, FromFileError};
+use std::{env, path::PathBuf};
 
-use auth::{CredsJson, CredsYaml};
+use auth::OAuth1Keys;
 
 fn main() {
-    let keyfile = "keys/twitter_keys.yaml";
+    let keyfile = PathBuf::from(env::args().nth(1).expect("Arg1: keyfile expected"));
 
-    match CredsJson::from_file(keyfile) {
+    match OAuth1Keys::try_from(keyfile) {
         Ok(p) => println!("Data read: {p:#?}"),
-        Err(e) => match e {
-            FromFileError::SerdeError(_) => match CredsYaml::from_file(keyfile) {
-                Ok(p) => println!("Data read: {p:#?}"),
-                _ => eprintln!("{}", e),
-            },
-            _ => eprintln!("{}", e),
-        },
+        Err(e) => eprintln!("{e:?}"),
     }
 }
